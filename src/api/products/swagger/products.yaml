@@ -1,0 +1,89 @@
+/api/products:
+  x-swagger-router-controller: controller
+  post:
+    operationId: createProduct
+    x-security-scopes:
+      - create
+    tags: 
+      - PRODUCT
+    summary: Create Product
+    description: Creates a New Product
+    parameters:
+      - in: body
+        name: body
+        description: Create New Product
+        required: true
+        schema:
+          $ref: "#/definitions/product"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+  get:
+    operationId: getProducts
+    tags:
+      - PRODUCT
+    summary: List of Products
+    description: Get List of Products
+    parameters:    
+      - in: query
+        name: offset
+        required: true
+        description: The number of items to skip
+        type: integer
+      - in: query
+        name: limit
+        required: true
+        description: The number of items to limit          
+        type: integer
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+
+
+/api/products/{productid}:
+  x-swagger-router-controller: controller
+  get:
+    operationId: getProductByID
+    tags:
+      - PRODUCT
+    summary: Get Selected Product
+    description: Returns the Selected Product Details
+    parameters:
+        - in: path
+          name: productid        
+          description: Selected Product ID
+          required: true
+          type: string
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+
+  put:
+    operationId: updateProduct
+    tags:
+      - PRODUCT
+    summary: Update Product
+    description: Updates an Product
+    parameters:
+        - in: path
+          name: productid        
+          description: ID of the product need to be updated
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated product object
+          required: false
+          schema:
+            $ref: "#/definitions/product"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error

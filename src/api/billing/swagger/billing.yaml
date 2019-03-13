@@ -1,0 +1,20 @@
+/api/billing:
+  x-swagger-router-controller: controller
+  post:
+    operationId: fetchBill
+    tags: 
+      - BILLING
+    summary: Fetch Bill details
+    description: Fetch bill
+    parameters:
+      - in: body
+        name: body
+        description: Fetch bill details
+        required: true
+        schema:
+          $ref: "#/definitions/billing"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error

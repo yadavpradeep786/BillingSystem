@@ -1,0 +1,89 @@
+/api/roles:
+  x-swagger-router-controller: controller
+  post:
+    operationId: createRole
+    x-security-scopes:
+      - create
+    tags: 
+      - ROLE
+    summary: Create Role
+    description: Creates a New Role
+    parameters:
+      - in: body
+        name: body
+        description: Create New Role
+        required: true
+        schema:
+          $ref: "#/definitions/role"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+  get:
+    operationId: getRoles
+    tags:
+      - ROLE
+    summary: List of Roles
+    description: Get List of Roles
+    parameters:    
+      - in: query
+        name: offset
+        required: true
+        description: The number of items to skip
+        type: integer
+      - in: query
+        name: limit
+        required: true
+        description: The number of items to limit          
+        type: integer
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+
+
+/api/roles/{roleid}:
+  x-swagger-router-controller: controller
+  get:
+    operationId: getRoleByID
+    tags:
+      - ROLE
+    summary: Get Selected Role
+    description: Returns the Selected Role Details
+    parameters:
+        - in: path
+          name: roleid        
+          description: Selected Role ID
+          required: true
+          type: string
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+
+  put:
+    operationId: updateRole
+    tags:
+      - ROLE
+    summary: Update Role
+    description: Updates an Role
+    parameters:
+        - in: path
+          name: roleid        
+          description: ID of the role need to be updated
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated role object
+          required: false
+          schema:
+            $ref: "#/definitions/role"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error

@@ -1,0 +1,108 @@
+/api/users/users:
+  x-swagger-router-controller: controller
+  ######### Get Users List <START> #########
+  get:
+    operationId: getUsers
+    security:
+      - Context: []
+    tags:
+      - USERS
+    summary: Get Users list
+    description: Returns the list of User Details
+    parameters:
+      - in: query
+        name: offset
+        required: true
+        description: The number of items to skip
+        type: integer
+      - in: query
+        name: limit
+        required: true
+        description: The number of items to limit
+        type: integer
+      - in: query
+        name: searchKey
+        description: Search User's list
+        type: "string"
+      - in: query
+        name: sortKey
+        description: Sort User's list
+        type: "string"
+      - in: query
+        name: ascending
+        required: false
+        description: Sort user's list
+        type: boolean
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+  ######### Get Users List <END> #########
+  ######### Create User <START> #########
+  post:
+    operationId: createUser
+    security:
+      - Context: []
+    tags: 
+      - USERS
+    summary: Create User
+    description: Create a New User
+    parameters:
+      - in: body
+        name: body
+        description: Creates a New User
+        required: true
+        schema:
+          $ref: "#/definitions/user"
+    responses:
+      200:
+        description: Success
+######### Create User <END> #########
+
+/api/users/{userid}:
+  x-swagger-router-controller: controller
+  ######### Get User By ID <START> #########
+  get:
+    operationId: getUserByID
+    tags:
+      - USERS
+    summary: Get Selected User
+    description: Returns the Selected User Details
+    parameters:
+        - in: path
+          name: userid        
+          description: Selected User ID
+          required: true
+          type: string
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+  ######### Get User By ID <END> #########
+  ######### Update User With ID <START> #########
+  put:
+    operationId: updateUser
+    tags:
+      - USERS
+    summary: Update User
+    description: Updates User
+    parameters:
+        - in: path
+          name: userid
+          description: ID of the user need to be updated
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated user object
+          required: false
+          schema:
+            $ref: "#/definitions/user"
+    responses:
+      200:
+        description: Success
+      500:
+        description: Error
+  ######### Update User With ID <END> #########

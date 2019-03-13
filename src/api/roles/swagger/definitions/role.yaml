@@ -1,0 +1,9 @@
+definitions:
+  role:
+    properties:
+      roleName:
+        type : string
+      displayName:
+        type: string
+      isActive:
+        type : boolean

@@ -1,0 +1,11 @@
+definitions:
+  product:
+    properties:
+      productName:
+        type : string
+      productType:
+        type: string
+      productPrice:
+        type: number
+      isActive:
+        type : boolean
