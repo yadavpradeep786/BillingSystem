@@ -1,7 +1,7 @@
 {
       "name": "billing_sample",
       "version": "1.0.0",
-      "description": "ppl_core server",
+      "description": "billing_sample server",
       "main": "src/app.js",
       "scripts": {
             "startWithPm2": "pm2 start src/app.js --interpreter babel-node -e js,yaml",

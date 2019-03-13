@@ -1,9 +1,10 @@
 definitions:
   product:
-    properties:
-      productName:
-        type : string
-      productType:
-        type: string
-      isActive:
-        type : boolean
+    type: array
+    items:
+      type: object
+      properties:
+        productid:
+          type : string
+        quantity:
+          type: number

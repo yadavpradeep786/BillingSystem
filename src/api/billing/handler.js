@@ -52,7 +52,7 @@ export default class BillingHandler {
                     total: total,
                 }
             }
-            cb && cb(response, statusCodes.SUCCESSFULLY_CREATED);
+            cb && cb(response, statusCodes.OK);
         } catch (e) {
             console.log("error catched in fetchBill handler ", e.message);
             var error = {
@@ -64,12 +64,13 @@ export default class BillingHandler {
     }
     
     getDisCountByUser(userData) {
+        console.log(userData.createdAt, " - ", new Date().now().setFullYear(-2))
         if (userData) {
             if (roleData.roleName == 'EMPLOYEE') {
                 return 30;
             } else if (roleData.roleName == 'AFFILIATE') {
                 return 10;
-            } else if (userData.createdAt > (new Date().now().minusYears(2))) {
+            } else if (userData.createdAt < new Date().now().setFullYear(-2)) {
                 return 5;
             } else {
                 return 0;
