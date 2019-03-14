@@ -12,6 +12,7 @@ Go to browser-  http://localhost:8000/docs/
 Usage
 Steps to test the application :
 1. Loggin into the app using - '/api/login' api
+    Test Credentials(/src/config/seedData/seeds.js) - emp01@gmail.com/123456, aff01@gmail.com/123456
 2. Set the response token value by clicking on 'Authorize' button(right top), paste in both input boxes and click on both the 'Authorize' buttons.
 3. Calculate billing using '/api/billing' api.
 4. Use 'productid' from the result from '/api/products' api (_id).
