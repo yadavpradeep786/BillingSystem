@@ -1,7 +1,6 @@
             #############   BillingSystem     ###############
 
-Install
-Setup Steps :
+<h4><b>Setup Steps :</b></h4>
 1. Clone this repo-     git clone https://github.com/yadavpradeep786/BillingSystem.git
 2. Install dependencies-    npm install
 3. Final Step-    npm start
@@ -9,15 +8,18 @@ Setup Steps :
 That's all, you are at SwaggerUI document page :)
 Go to browser-  http://localhost:8000/docs/
 
-Usage
-Steps to test the application :
+
+<h4><b>Steps to test the application :</b></h4>
 1. Loggin into the app using - '/api/login' api
     Test Credentials(/src/config/seedData/seeds.js) - emp01@gmail.com/123456, aff01@gmail.com/123456
-2. Set the response token value by clicking on 'Authorize' button(right top), paste in both input boxes and click on both the 'Authorize' buttons.
+2. Set the response token value by clicking on 'Authorize' button(right top),
+   paste in both input boxes and click on both the 'Authorize' buttons.
 3. Calculate billing using '/api/billing' api.
 4. Use 'productid' from the result from '/api/products' api (_id).
 5. Use other API's based on your requirement.
 
+
+<h4><b>Logic:</b></h4>
 
 Billing API works based on the following discounts/conditions:
 1. If the user is an employee of the store, he gets a 30% discount
