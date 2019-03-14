@@ -1,5 +1,5 @@
-import statusCodes from '../../config/statuscodes';
-import products from '../products/product';
+import statusCodes from '../../config/statuscodes'
+// import products from '../products/product'
 import moment from 'moment'
 
 export default class BillingHandler {
@@ -14,26 +14,26 @@ export default class BillingHandler {
 	async fetchBill(body, context, cb) {
 		try {
 			let groceriesTotal = null,
-			nonGroceriesTotal = null,
-			discountByUser = await this.getDisCountByUser(context.userData);
+				nonGroceriesTotal = null,
+				discountByUser = await this.getDisCountByUser(context.userData)
 
 			body.forEach((item, index) =>  {
-				let product = global.dbController.findOne('products', { _id: global.dbController.convertIdToObjectID(item.productid) }, (productData) => {
+				global.dbController.findOne('products',	{ _id: global.dbController.convertIdToObjectID(item.productid) }, (productData) => {
 					if (productData.status) {
 						if (productData.result.data.productType == 'GROCERIES') {
-							groceriesTotal += productData.result.data.productPrice * item.quantity;
+							groceriesTotal += productData.result.data.productPrice * item.quantity
 						} else {
-							nonGroceriesTotal += productData.result.data.productPrice * item.quantity;
+							nonGroceriesTotal += productData.result.data.productPrice * item.quantity
 						}
 						if(body.length == index+1) {
 							let nonGroceriesDiscount = null, 
-							total = null, 
-							discountForAll = null;
+								total = null, 
+								discountForAll = null
 							
-							nonGroceriesDiscount = nonGroceriesTotal * discountByUser / 100;
-							total = groceriesTotal + nonGroceriesTotal - nonGroceriesDiscount;
-							discountForAll = Math.floor(total / 100) * 5;
-							total = total - discountForAll;
+							nonGroceriesDiscount = nonGroceriesTotal * discountByUser / 100
+							total = groceriesTotal + nonGroceriesTotal - nonGroceriesDiscount
+							discountForAll = Math.floor(total / 100) * 5
+							total = total - discountForAll
 					
 							cb && cb({
 								status: true,
@@ -46,30 +46,37 @@ export default class BillingHandler {
 									'Discount on total @5%': discountForAll,
 									'Amount to be paid': total
 								}
-							}, statusCodes.OK);
+							}, statusCodes.OK)
 						}
+					} else {
+						let error = {
+							status: false,
+							result: { message: `Unable to fetch product with id- ${item.productid }. Please cross-check the id.` }
+						}
+						cb && cb(error, statusCodes.BAD_REQUEST)
+						return
 					}
-				});
-			});
+				})
+			})
 		} catch (e) {
-			console.log("error catched in fetchBill handler ", e.message);
-			var error = {
+			// console.log('error catched in fetchBill handler ', e.message)
+			let error = {
 				status: false,
 				result: { message: e.message }
-			};
-			cb && cb(error, statusCodes.INTERNAL_SERVER_ERROR);
+			}
+			cb && cb(error, statusCodes.INTERNAL_SERVER_ERROR)
 		}
 	}
 	
 	getDisCountByUser(userData) {
 		if (userData.rolesDetails[0].roleName == 'EMPLOYEE') {
-			return 30;
+			return 30
 		} else if (userData.rolesDetails[0].roleName == 'AFFILIATE') {
-			return 10;
+			return 10
 		} else if (moment().subtract(2, 'years').isAfter(userData.createdAt)) {
-			return 5;
+			return 5
 		} else {
-			return 0;
+			return 0
 		}
 	}
 }

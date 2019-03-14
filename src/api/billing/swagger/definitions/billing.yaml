@@ -6,7 +6,5 @@ definitions:
       properties:
         productid:
           type : string
-          # required: true
         quantity:
           type: number
-          # required: true

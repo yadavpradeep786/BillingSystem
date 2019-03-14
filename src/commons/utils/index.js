@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-const bcrypt = require('bcrypt');
-var TOTAL_PWD_ROUNDS = 10;
+const bcrypt = require('bcrypt')
+var TOTAL_PWD_ROUNDS = 10
 
 
 class Utils {
@@ -14,7 +14,7 @@ class Utils {
 	 * @version 2.0
 	 */
 	createJWTtoken(details, subject) {
-		return jwt.sign(details, process.env.JTW_SECRET, { expiresIn: '1h', subject: subject });
+		return jwt.sign(details, process.env.JTW_SECRET, { expiresIn: '1h', subject: subject })
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Utils {
 			return ({
 				status: false,
 				result: {message:'Invalid Token'}
-			});
+			})
 
 		const result = await new Promise(function (resolve) {
 			jwt.verify(token, process.env.JTW_SECRET, {subject:subject}, function (err, decoded) {				
@@ -38,15 +38,15 @@ class Utils {
 						result: {message:err}
 					})
 				else {
-					console.log(decoded)
+					// console.log(decoded)
 					resolve(({
 						status: true,
 						result: decoded
 					}))
 				}
-			});
+			})
 		})
-		return result;
+		return result
 	}
 
 	asyncverifyJWTtoken(token, subject, cb) {
@@ -54,22 +54,22 @@ class Utils {
 			cb && cb ({
 				status: false,
 				result: { message: 'Invalid Token', isInvalidToken: true }
-			});
+			})
 
 		// const result = await new Promise(function (resolve) {
-			jwt.verify(token, process.env.JTW_SECRET, { subject: subject }, function (err, decoded) {
-				if (err || decoded == null)
-					cb && cb({
-						status: false,
-						result: { message: err }
-					})
-				else {
-					cb && cb({
-						status: true,
-						result: decoded
-					})
-				}
-			});
+		jwt.verify(token, process.env.JTW_SECRET, { subject: subject }, function (err, decoded) {
+			if (err || decoded == null)
+				cb && cb({
+					status: false,
+					result: { message: err }
+				})
+			else {
+				cb && cb({
+					status: true,
+					result: decoded
+				})
+			}
+		})
 		// })
 		// return result;
 	}
@@ -81,7 +81,7 @@ class Utils {
 	 * @version 2.0
 	 */
 	generatePassword() {
-		return Math.random().toString(36).substring(3);
+		return Math.random().toString(36).substring(3)
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Utils {
 	 * @version 2.0
 	 */
 	createPasswordHash(pwd) {
-		return bcrypt.hashSync(pwd, TOTAL_PWD_ROUNDS);
+		return bcrypt.hashSync(pwd, TOTAL_PWD_ROUNDS)
 	}
 
 	/**
@@ -105,8 +105,8 @@ class Utils {
 		if (!pwd || !hash)
 			return {
 				status: false,
-				result: {message:"Invalid Username/Password"}
-			};
+				result: {message:'Invalid Username/Password'}
+			}
 
 		if (bcrypt.compareSync(pwd, hash)) {
 			return {
@@ -115,11 +115,11 @@ class Utils {
 		} else {
 			return {
 				status: false,
-				result: {message:"Invalid Username/Password"}
-			};
+				result: {message:'Invalid Username/Password'}
+			}
 		}
 	}
 }
 
-var utils = new Utils();
-export default utils;
+var utils = new Utils()
+export default utils
