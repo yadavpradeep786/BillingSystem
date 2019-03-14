@@ -30,11 +30,16 @@ export default {
             title: APP_NAME,
             description: `RESTful API ${APP_NAME}`,
             contact: {
-                name: "",
+                name: "Pradeep Yadav",
                 url: "",
                 email: "yadavpradeep786@gmail.com"
             }
         }
+    },
+    authConfig: {
+        local: true,
+        facebook: false,
+        google: false
     },
     mode: process.env.NODE_ENV || 'development', // mode
     name: APP_NAME, // name 

@@ -24,6 +24,7 @@ export const getUserByID = (req, res) => {
 }
 
 export const getUsers = (req, res) => {
+    console.log("IN")
     var userHandler = new UserHandler();
     userHandler.getUsers(req.query, (result, statusCode) => {
         res.status(statusCode).send(result);

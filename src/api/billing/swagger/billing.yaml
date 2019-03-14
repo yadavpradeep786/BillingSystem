@@ -2,6 +2,8 @@
   x-swagger-router-controller: controller
   post:
     operationId: fetchBill
+    security:
+      - Context: []
     tags: 
       - BILLING
     summary: Fetch Bill details

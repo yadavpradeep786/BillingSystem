@@ -20,19 +20,6 @@
         required: true
         description: The number of items to limit
         type: integer
-      - in: query
-        name: searchKey
-        description: Search User's list
-        type: "string"
-      - in: query
-        name: sortKey
-        description: Sort User's list
-        type: "string"
-      - in: query
-        name: ascending
-        required: false
-        description: Sort user's list
-        type: boolean
     responses:
       200:
         description: Success

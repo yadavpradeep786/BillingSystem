@@ -1,30 +1,33 @@
-
 import swaggerTools from 'swagger-tools';
 import express from 'express';
 import { error } from 'express-easy-helper';
+import contextHandler from '../../aaa/authorization/contextHandler';
+import authorizationHanlder from '../../aaa/authorization/handler';
 import config from '../index';
 
 export function index(app) {
     let swaggerConfig = require('./config').default(app);
     let routerConfig = {
         controllers: [
+            `${config.base}/aaa/authentication`,
             `${config.base}/api/users`,
             `${config.base}/api/roles`,
             `${config.base}/api/products`,
+            `${config.base}/api/billing`,
         ],
         useStubs: false // If you want use examples.
     };
     swaggerTools.initializeMiddleware(swaggerConfig, middleware => {
         // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
         app.use(middleware.swaggerMetadata());
-
+        
         // Provide the security handlers
         app.use(middleware.swaggerSecurity({
             Context: ((req, authOrSecDef, token, cb) => {
-                // authChecker.getUserContext(req, authOrSecDef, token, cb);
+                contextHandler.getUserContext(req, authOrSecDef, token, cb);
             }),
-            AuthChecks: ((req, authOrSecDef, token, cb) => {
-                // authChecker.checkStatus(req, authOrSecDef, cb);
+            Bearer: ((req, authOrSecDef, token, cb) => {
+                authorizationHanlder.authorizeRequest(req, authOrSecDef, cb);
             })
         }));
 

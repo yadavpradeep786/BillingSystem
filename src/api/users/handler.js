@@ -59,7 +59,9 @@ export default class UserHandler {
      */
     getUsers(params, cb) {
         try {
+            console.log("response")
             global.dbController.find('users', {}, params, (response) => {
+                console.log(response)
                 if (response.status) {
                     cb && cb(response, statusCodes.OK);
                 } else {
@@ -88,6 +90,20 @@ export default class UserHandler {
     getUserByID(userid, cb) {
         var query = {
             _id: global.dbController.convertIdToObjectID(userid)
+        }
+        this.getUserDetails(query, cb);
+    }
+
+    /**
+     * getUserByEmail method will return the selected user details
+     * @param email: Selected user email
+     * @param cb : to return response
+     * @author  Pradeep
+     * @version 1.0
+     */
+    getUserByEmail(email, cb) {
+        var query = {
+            email: email
         }
         this.getUserDetails(query, cb);
     }

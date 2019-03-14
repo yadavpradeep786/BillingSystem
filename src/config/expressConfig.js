@@ -25,7 +25,7 @@ export const expressConfig = (app) => {
     app.use(cors({ origin: true, credentials: true }));  // Has to be more detailed;; NEEDS MORE INPUTS
 
     app.use(passport.initialize());
-    app.use(passport.session()); // Needs to be discussed and removed.
+    app.use(passport.session());
     if (config.log) {
         app.use(morgan('dev')); // Provide the response time, and other logs
     }

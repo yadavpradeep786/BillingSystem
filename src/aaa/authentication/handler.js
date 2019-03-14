@@ -1,9 +1,14 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import UserHandler from '../../api/users/handler';
+import config from '../../config/index';
+import statusCodes from '../../config/statuscodes';
+import utils from '../../commons/utils/index';
+import { userInfo } from 'os';
 
 class LoginHandler {
     constructor() {
+        this.initalizeStrategies();
     }
 
     /**
@@ -15,8 +20,9 @@ class LoginHandler {
     */
     loginWithPassword(req, res, next) {
         passport.authenticate('local', (err, response) => {
+            console.log(err, response)
             //  Passport Error (If username or passwords are empty strings passport throwing it's own error)
-            if (response == false) {
+            if (response == false || response == undefined) {
                 var result = {
                     message: "Invalid Username or Password"
                 };
@@ -88,11 +94,11 @@ class LoginHandler {
                 return;
             }
             var userHandler = new UserHandler();
-            userHandler.getUserByEmail(username, (response) => {
+            userHandler.getUserByEmail(username.toLowerCase(), (response) => {
                 if (!response.status) {
                     cb && cb({ status: false, result: { message: "User Not Found" } });
-                } else if (response.result && response.result.data && response.result.data.isActive) {
-                    var userDetails = response.result.data;
+                } else if (response.result && response.result.data[0] && response.result.data[0].isActive) {
+                    var userDetails = response.result.data[0];
                     var result = utils.verifyPasswordHash(password, userDetails.password);
                     if (result.status) {
                         cb && cb({
@@ -102,6 +108,8 @@ class LoginHandler {
                     } else {
                         cb && cb(result);
                     }
+                } else {
+                    cb && cb({ status: false, result: { message: "User Not Found." } });
                 }
             });
 
@@ -110,7 +118,7 @@ class LoginHandler {
                 status: false,
                 result: e.message
             };
-            cb && cb(result);
+            cb && cb(error);
         }
     }
 }

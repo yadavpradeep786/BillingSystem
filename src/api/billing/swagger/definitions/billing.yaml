@@ -1,10 +1,12 @@
 definitions:
-  product:
+  billing:
     type: array
     items:
       type: object
       properties:
         productid:
           type : string
+          # required: true
         quantity:
           type: number
+          # required: true

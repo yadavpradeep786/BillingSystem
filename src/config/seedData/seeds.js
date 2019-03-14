@@ -2,6 +2,7 @@ import User from '../../api/users/user';
 import Roles from '../../api/roles/role';
 import products from '../../api/products/product';
 import lodash from 'lodash';
+import utils from '../../commons/utils/index';
 
 let defaultEmpID = null;
 let defaultAffID = null;
@@ -12,7 +13,7 @@ async function insertDefaultUsers() {
         firstName: "Pradeep",
         lastName: "Yadav",
         email: "emp01@gmail.com",
-        password: "123456",
+        password: utils.createPasswordHash("123456"),
         isActive: true,
         isSystemDefined: true,
         userrole: defaultEmpID,
@@ -33,7 +34,7 @@ async function insertDefaultUsers() {
         firstName: "Rahul",
         lastName: "Yadav",
         email: "aff01@gmail.com",
-        password: "123456",
+        password: utils.createPasswordHash("123456"),
         isActive: true,
         isSystemDefined: true,
         userrole: defaultAffID,

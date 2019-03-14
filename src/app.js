@@ -17,7 +17,7 @@ const app = express();
     global.dbController = new DBController();
 
     // Insert default seeds
-    // insertSeedData();
+    insertSeedData();
 
     // Swagger
     require('./config/swaggerConfig/index').index(app);

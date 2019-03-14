@@ -19,13 +19,13 @@ export default (app) => {
           type: 'apiKey',
           name: 'x-access-token',
           in: 'header',
-          description: 'The following syntax must be used in the "Authorization" header xxxxxx.yyyyyyy.zzzzzz'
+          description: 'Used to check user is logged-in or not.'
         },
         Context: {
           type: 'apiKey',
           name: 'x-access-token',
           in: 'header',
-          description: 'The following syntax must be used in the "Authorization" header xxxxxx.yyyyyyy.zzzzzz'
+          description: 'This is used to attach the logged-in user context with the request.'
         }
       }
     },

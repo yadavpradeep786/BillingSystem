@@ -4,11 +4,11 @@ import statuscodes from '../../config/statuscodes'
 import RoleHandler from '../../api/roles/handler';
 // import UserSubscriptions from '../../api/subscriptions/userSubscriptions/handler';
 
-class AuthorizationHanlder {
+export default class AuthorizationHanlder {
     constructor() {
     }
 
-    authorizeRequest(req, authOrSecDef, cb) {
+    async authorizeRequest(req, authOrSecDef, cb) {
         var actionName = req.swagger.operation["x-security-scopes"][0];
         var resourceCode = req.swagger.operation["tags"][0];
         var error = {

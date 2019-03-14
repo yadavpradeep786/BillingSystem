@@ -49,6 +49,31 @@ class Utils {
 		return result;
 	}
 
+	asyncverifyJWTtoken(token, subject, cb) {
+		if (!token)
+			cb && cb ({
+				status: false,
+				result: { message: 'Invalid Token', isInvalidToken: true }
+			});
+
+		// const result = await new Promise(function (resolve) {
+			jwt.verify(token, process.env.JTW_SECRET, { subject: subject }, function (err, decoded) {
+				if (err || decoded == null)
+					cb && cb({
+						status: false,
+						result: { message: err }
+					})
+				else {
+					cb && cb({
+						status: true,
+						result: decoded
+					})
+				}
+			});
+		// })
+		// return result;
+	}
+	
 	/**
 	 * The createPasswordHash method will encrypt password in instavc-2.0 
 	 * @param pwd: PWD that needs to be hashed
