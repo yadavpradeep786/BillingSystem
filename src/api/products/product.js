@@ -33,6 +33,12 @@ const productSchema = new Schema({
 		default: false
 	},
 
+	createdBy: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'users',
+		required: false
+	},
+
 	isActive: {
 		type: Boolean,
 		default: false

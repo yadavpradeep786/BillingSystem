@@ -56,11 +56,6 @@ const userSchema = new Schema({
 		],
 	},
 
-	designation:{
-		type: String,
-		required: false
-	},
-
 	userrole: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'roles',
